@@ -281,7 +281,7 @@
     align-items: center;
     justify-content: center;
     z-index: 20;
-    background: rgba(7,4,2,.28);
+    background: rgba(7,4,2,.45);
   }
 
   .round-overlay.show,
@@ -290,7 +290,7 @@
   .round-box,
   .room-box-card {
     width: min(92vw, 1450px);
-    background: rgba(26,18,12,.95);
+    background: rgba(26,18,12,.97);
     border: 3px solid rgba(255,255,255,.18);
     border-radius: 28px;
     padding: 22px;
@@ -336,14 +336,14 @@
   }
 
   .room-title {
-    font-size: 54px;
+    font-size: 72px;
     font-weight: 1000;
     color: #ffe6a3;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .room-sub {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 900;
     color: #fff8e7;
   }
@@ -577,36 +577,12 @@ const ROOMS = [
     title: "1-xona — Niso jangi",
     intro: "Niso bosqichi boshlanmoqda",
     questions: [
-      {
-        q:"Savol 1. Niso atrofida Jaloliddinning eng muhim maqsadi qaysi edi?",
-        correct:"Qo‘shinni saqlab, xavfli yo‘ldan tez chiqish.",
-        wrong:["Asosiy kuch kelguncha bir joyda uzoq kutish.","Maydonni tark etmay, qamalni cho‘zib yuborish.","Faqat dushman bayrog‘ini qo‘lga kiritishni ko‘zlash."]
-      },
-      {
-        q:"Savol 2. Niso oldida kichik dushman to‘sig‘iga duch kelinsa, qaysi usul foydaliroq?",
-        correct:"Qisqa va aniq zarba bilan yo‘lni ochish.",
-        wrong:["Harakatni to‘xtatib, uzoq kengash bilan vaqt o‘tkazish.","Qo‘shinni bo‘lib, hamma tomonga yoyib yuborish.","Asosiy yo‘ldan chiqib, maqsadsiz aylanib yurish."]
-      },
-      {
-        q:"Savol 3. Niso voqealarida vaqtni boy bermaslik nega muhim edi?",
-        correct:"Chunki kechikish dushmanga kuch yig‘ish imkonini beradi.",
-        wrong:["Chunki uzoq kutish askarni avtomatik kuchaytiradi.","Chunki qanchalik sekin yurilsa, yo‘l shunchalik xavfsiz bo‘ladi.","Chunki faqat tun tushganda hujum qilish mumkin bo‘ladi."]
-      },
-      {
-        q:"Savol 4. Niso yo‘lida to‘g‘ri qaror nimani saqlab qoladi?",
-        correct:"Ham yurish tezligini, ham qo‘shin tartibini.",
-        wrong:["Faqat shon-shuhratni, ammo askarni emas.","Faqat bayroqni, lekin yo‘lni emas.","Faqat jang maydonini, lekin yurish maqsadini emas."]
-      },
-      {
-        q:"Savol 5. Niso atrofidagi qarorlarda qaysi fikr to‘g‘ri?",
-        correct:"Har bir to‘qnashuvni uzoq jangga aylantirish shart emas.",
-        wrong:["Faqat eng katta janggina g‘alaba olib keladi.","Har safar orqaga qaytish eng xavfsiz yo‘ldir.","Kichik to‘siq ko‘rilsa, maqsadni o‘zgartirish kerak bo‘ladi."]
-      },
-      {
-        q:"Savol 6. Niso voqeasi Jaloliddin kuchining nimada ekanini ko‘rsatadi?",
-        correct:"Tez baholash va aniq qaror chiqarishda.",
-        wrong:["Faqat son jihatdan ustun qo‘shin yig‘ishda.","Faqat uzun qamalga chidashda.","Faqat dushmanni ortga quvishda."]
-      }
+      { q:"Savol 1. Niso atrofida Jaloliddinning eng muhim maqsadi qaysi edi?", correct:"Qo‘shinni saqlab, xavfli yo‘ldan tez chiqish.", wrong:["Asosiy kuch kelguncha bir joyda uzoq kutish.","Maydonni tark etmay, qamalni cho‘zib yuborish.","Faqat dushman bayrog‘ini qo‘lga kiritishni ko‘zlash."] },
+      { q:"Savol 2. Niso oldida kichik dushman to‘sig‘iga duch kelinsa, qaysi usul foydaliroq?", correct:"Qisqa va aniq zarba bilan yo‘lni ochish.", wrong:["Harakatni to‘xtatib, uzoq kengash bilan vaqt o‘tkazish.","Qo‘shinni bo‘lib, hamma tomonga yoyib yuborish.","Asosiy yo‘ldan chiqib, maqsadsiz aylanib yurish."] },
+      { q:"Savol 3. Niso voqealarida vaqtni boy bermaslik nega muhim edi?", correct:"Chunki kechikish dushmanga kuch yig‘ish imkonini beradi.", wrong:["Chunki uzoq kutish askarni avtomatik kuchaytiradi.","Chunki qanchalik sekin yurilsa, yo‘l shunchalik xavfsiz bo‘ladi.","Chunki faqat tun tushganda hujum qilish mumkin bo‘ladi."] },
+      { q:"Savol 4. Niso yo‘lida to‘g‘ri qaror nimani saqlab qoladi?", correct:"Ham yurish tezligini, ham qo‘shin tartibini.", wrong:["Faqat shon-shuhratni, ammo askarni emas.","Faqat bayroqni, lekin yo‘lni emas.","Faqat jang maydonini, lekin yurish maqsadini emas."] },
+      { q:"Savol 5. Niso atrofidagi qarorlarda qaysi fikr to‘g‘ri?", correct:"Har bir to‘qnashuvni uzoq jangga aylantirish shart emas.", wrong:["Faqat eng katta janggina g‘alaba olib keladi.","Har safar orqaga qaytish eng xavfsiz yo‘ldir.","Kichik to‘siq ko‘rilsa, maqsadni o‘zgartirish kerak bo‘ladi."] },
+      { q:"Savol 6. Niso voqeasi Jaloliddin kuchining nimada ekanini ko‘rsatadi?", correct:"Tez baholash va aniq qaror chiqarishda.", wrong:["Faqat son jihatdan ustun qo‘shin yig‘ishda.","Faqat uzun qamalga chidashda.","Faqat dushmanni ortga quvishda."] }
     ]
   },
   {
@@ -614,41 +590,13 @@ const ROOMS = [
     title: "2-xona — Valiyon jangi",
     intro: "Valiyon bosqichi boshlanmoqda",
     questions: [
-      {
-        q:"Savol 7. Valiyon tomonidagi jangda qaysi maydon himoya uchun qulayroq?",
-        correct:"Balandroq va ko‘rinish keng bo‘lgan joy.",
-        wrong:["Ko‘rinishi yopiq, past va tor botqoqli joy.","Faqat daryo ichidagi harakatsiz nuqta.","Dushmanga eng yaqin, lekin ochiq qoladigan tekis joy."]
-      },
-      {
-        q:"Savol 8. Valiyon voqealarida sabr nega foydali bo‘lishi mumkin?",
-        correct:"Chunki shoshgan dushman xato qilishi ehtimoli ortadi.",
-        wrong:["Chunki uzoq kutish har safar dushmanni qo‘rqitadi.","Chunki sabr qilinsa, jang bo‘lmay qoladi.","Chunki faqat eng oxirgi daqiqada qaror qilish kerak bo‘ladi."]
-      },
-      {
-        q:"Savol 9. Valiyon atrofida dushmanni chalg‘itish nimaga xizmat qiladi?",
-        correct:"Vaqt yutish va o‘z tartibini saqlab qolishga.",
-        wrong:["Maydonni bo‘sh qoldirib, yo‘lni dushmanga berishga.","Askarning joyini tez-tez almashtirib charchatishga.","Faqat shovqin ko‘paytirib, rejasizlik yaratishga."]
-      },
-      {
-        q:"Savol 10. Valiyon jangida birlikning eng katta foydasi nimada?",
-        correct:"Qo‘shin bir-birini qo‘llab, tartibli harakat qiladi.",
-        wrong:["Faqat tez yugurish uchun keng maydon ochiladi.","Har kim alohida jang qilsa, kuch ortadi.","Qaror bir emas, ko‘p markazdan chiqsa yaxshiroq bo‘ladi."]
-      },
-      {
-        q:"Savol 11. Baland joydan qarashning asosiy foydasi qaysi?",
-        correct:"Dushman harakati ertaroq ko‘rinadi va tayyorlanish osonlashadi.",
-        wrong:["Faqat bayroq uzoqdan yaxshi ko‘rinadi.","Otlar baland joyda har doim tezroq yuguradi.","U yerda jang qilinmasa ham g‘alaba yoziladi."]
-      },
-      {
-        q:"Savol 12. Valiyon voqealarida eng yaxshi himoya qarori qaysi?",
-        correct:"Joyni to‘g‘ri tanlab, shoshmasdan tartibni saqlash.",
-        wrong:["Darhol ochiq maydonga tushib, xavfni oshirish.","Qarorni kechiktirib, hech kimga vazifa bermaslik.","Faqat bir yo‘nalishga qarab, qolgan tomonni unutish."]
-      },
-      {
-        q:"Savol 13. Valiyon atrofidagi kurashda qaysi fikr eng mantiqli?",
-        correct:"Faqat kuch emas, kuzatuv va joy tanlash ham muhim.",
-        wrong:["Faqat oldinga yurish bo‘lsa, qolgan omillar kerak emas.","Faqat qalin saf bo‘lsa, maydon farq qilmaydi.","Faqat dushman soni hal qiluvchi omil bo‘lib qoladi."]
-      }
+      { q:"Savol 7. Valiyon tomonidagi jangda qaysi maydon himoya uchun qulayroq?", correct:"Balandroq va ko‘rinish keng bo‘lgan joy.", wrong:["Ko‘rinishi yopiq, past va tor botqoqli joy.","Faqat daryo ichidagi harakatsiz nuqta.","Dushmanga eng yaqin, lekin ochiq qoladigan tekis joy."] },
+      { q:"Savol 8. Valiyon voqealarida sabr nega foydali bo‘lishi mumkin?", correct:"Chunki shoshgan dushman xato qilishi ehtimoli ortadi.", wrong:["Chunki uzoq kutish har safar dushmanni qo‘rqitadi.","Chunki sabr qilinsa, jang bo‘lmay qoladi.","Chunki faqat eng oxirgi daqiqada qaror qilish kerak bo‘ladi."] },
+      { q:"Savol 9. Valiyon atrofida dushmanni chalg‘itish nimaga xizmat qiladi?", correct:"Vaqt yutish va o‘z tartibini saqlab qolishga.", wrong:["Maydonni bo‘sh qoldirib, yo‘lni dushmanga berishga.","Askarning joyini tez-tez almashtirib charchatishga.","Faqat shovqin ko‘paytirib, rejasizlik yaratishga."] },
+      { q:"Savol 10. Valiyon jangida birlikning eng katta foydasi nimada?", correct:"Qo‘shin bir-birini qo‘llab, tartibli harakat qiladi.", wrong:["Faqat tez yugurish uchun keng maydon ochiladi.","Har kim alohida jang qilsa, kuch ortadi.","Qaror bir emas, ko‘p markazdan chiqsa yaxshiroq bo‘ladi."] },
+      { q:"Savol 11. Baland joydan qarashning asosiy foydasi qaysi?", correct:"Dushman harakati ertaroq ko‘rinadi va tayyorlanish osonlashadi.", wrong:["Faqat bayroq uzoqdan yaxshi ko‘rinadi.","Otlar baland joyda har doim tezroq yuguradi.","U yerda jang qilinmasa ham g‘alaba yoziladi."] },
+      { q:"Savol 12. Valiyon voqealarida eng yaxshi himoya qarori qaysi?", correct:"Joyni to‘g‘ri tanlab, shoshmasdan tartibni saqlash.", wrong:["Darhol ochiq maydonga tushib, xavfni oshirish.","Qarorni kechiktirib, hech kimga vazifa bermaslik.","Faqat bir yo‘nalishga qarab, qolgan tomonni unutish."] },
+      { q:"Savol 13. Valiyon atrofidagi kurashda qaysi fikr eng mantiqli?", correct:"Faqat kuch emas, kuzatuv va joy tanlash ham muhim.", wrong:["Faqat oldinga yurish bo‘lsa, qolgan omillar kerak emas.","Faqat qalin saf bo‘lsa, maydon farq qilmaydi.","Faqat dushman soni hal qiluvchi omil bo‘lib qoladi."] }
     ]
   },
   {
@@ -656,41 +604,13 @@ const ROOMS = [
     title: "3-xona — Parvon jangi",
     intro: "Parvon bosqichi boshlanmoqda",
     questions: [
-      {
-        q:"Savol 14. Parvon jangida tor hudud Jaloliddinga qanday foyda berdi?",
-        correct:"Dushmanning erkin harakatini cheklab qo‘ydi.",
-        wrong:["O‘z qo‘shinining ko‘rish doirasini butunlay yopdi.","Hujumni to‘xtatib, faqat chekinishga majbur qildi.","Faqat suvga yaqinlashish uchun qulaylik yaratdi."]
-      },
-      {
-        q:"Savol 15. Parvon jangida yer tanlash nega muhim bo‘ldi?",
-        correct:"Chunki qulay joy kuchni to‘g‘ri ishlatishga yordam beradi.",
-        wrong:["Chunki faqat chiroyli joy askarni ruhlantiradi.","Chunki yer tanlash bo‘lmasa ham natija o‘zgarmaydi.","Chunki tor joyda doim jang to‘xtab qoladi."]
-      },
-      {
-        q:"Savol 16. Parvonda sabr bilan jang qilish nimaga xizmat qiladi?",
-        correct:"Dushman charchashini kutib, o‘z navbatini to‘g‘ri topishga.",
-        wrong:["Hujumni butunlay unutib, faqat yashirinib turishga.","Jangni maqsadsiz cho‘zib, askarni holdan toydirishga.","Faqat vaqt tugashini kutib, qarorsiz qolishga."]
-      },
-      {
-        q:"Savol 17. Dushmanning aldov harakati sezilsa, eng to‘g‘ri yo‘l qaysi?",
-        correct:"Darhol ishonmay, avval tekshirib ko‘rish.",
-        wrong:["Hech o‘ylamasdan butun kuch bilan quvib ketish.","Barcha safni buzib, har tomonga tarqalib ketish.","Faqat bitta xabarga qarab yakuniy qaror chiqarish."]
-      },
-      {
-        q:"Savol 18. Parvon jangidan keyingi eng to‘g‘ri ish qaysi bo‘ladi?",
-        correct:"G‘alabadan so‘ng ham tartib va birlikni saqlash.",
-        wrong:["Har kim o‘ljani o‘zi xohlagandek bo‘lib olish.","Natijani kutmay, darhol safni tarqatib yuborish.","Qarorlarni keyinga qoldirib, boshqaruvni bo‘shatish."]
-      },
-      {
-        q:"Savol 19. Parvon voqeasida Jaloliddinning ustunligi ko‘proq nimada ko‘rindi?",
-        correct:"To‘g‘ri joy, sabr va aniq boshqaruvni birlashtirishda.",
-        wrong:["Faqat ko‘p askar bilan maydonni to‘ldirishda.","Faqat dushmanni ko‘rmay turib hujum boshlashda.","Faqat tezlikni oshirib, tartibni unutishda."]
-      },
-      {
-        q:"Savol 20. Uch jangni birga qaraganda eng muhim xulosa qaysi?",
-        correct:"G‘alaba ko‘pincha tez fikr, tartib va to‘g‘ri strategiya bilan keladi.",
-        wrong:["G‘alaba faqat eng uzun jangda qo‘lga kiradi.","G‘alaba uchun bir xil usulni har joyda qo‘llash yetadi.","G‘alabada maydon va vaqt omili katta ahamiyatga ega emas."]
-      }
+      { q:"Savol 14. Parvon jangida tor hudud Jaloliddinga qanday foyda berdi?", correct:"Dushmanning erkin harakatini cheklab qo‘ydi.", wrong:["O‘z qo‘shinining ko‘rish doirasini butunlay yopdi.","Hujumni to‘xtatib, faqat chekinishga majbur qildi.","Faqat suvga yaqinlashish uchun qulaylik yaratdi."] },
+      { q:"Savol 15. Parvon jangida yer tanlash nega muhim bo‘ldi?", correct:"Chunki qulay joy kuchni to‘g‘ri ishlatishga yordam beradi.", wrong:["Chunki faqat chiroyli joy askarni ruhlantiradi.","Chunki yer tanlash bo‘lmasa ham natija o‘zgarmaydi.","Chunki tor joyda doim jang to‘xtab qoladi."] },
+      { q:"Savol 16. Parvonda sabr bilan jang qilish nimaga xizmat qiladi?", correct:"Dushman charchashini kutib, o‘z navbatini to‘g‘ri topishga.", wrong:["Hujumni butunlay unutib, faqat yashirinib turishga.","Jangni maqsadsiz cho‘zib, askarni holdan toydirishga.","Faqat vaqt tugashini kutib, qarorsiz qolishga."] },
+      { q:"Savol 17. Dushmanning aldov harakati sezilsa, eng to‘g‘ri yo‘l qaysi?", correct:"Darhol ishonmay, avval tekshirib ko‘rish.", wrong:["Hech o‘ylamasdan butun kuch bilan quvib ketish.","Barcha safni buzib, har tomonga tarqalib ketish.","Faqat bitta xabarga qarab yakuniy qaror chiqarish."] },
+      { q:"Savol 18. Parvon jangidan keyingi eng to‘g‘ri ish qaysi bo‘ladi?", correct:"G‘alabadan so‘ng ham tartib va birlikni saqlash.", wrong:["Har kim o‘ljani o‘zi xohlagandek bo‘lib olish.","Natijani kutmay, darhol safni tarqatib yuborish.","Qarorlarni keyinga qoldirib, boshqaruvni bo‘shatish."] },
+      { q:"Savol 19. Parvon voqeasida Jaloliddinning ustunligi ko‘proq nimada ko‘rindi?", correct:"To‘g‘ri joy, sabr va aniq boshqaruvni birlashtirishda.", wrong:["Faqat ko‘p askar bilan maydonni to‘ldirishda.","Faqat dushmanni ko‘rmay turib hujum boshlashda.","Faqat tezlikni oshirib, tartibni unutishda."] },
+      { q:"Savol 20. Uch jangni birga qaraganda eng muhim xulosa qaysi?", correct:"G‘alaba ko‘pincha tez fikr, tartib va to‘g‘ri strategiya bilan keladi.", wrong:["G‘alaba faqat eng uzun jangda qo‘lga kiradi.","G‘alaba uchun bir xil usulni har joyda qo‘llash yetadi.","G‘alabada maydon va vaqt omili katta ahamiyatga ega emas."] }
     ]
   }
 ];
@@ -849,38 +769,53 @@ function totalQuestionNumber() {
   return total + state.questionIndexInRoom + 1;
 }
 
-function stopAllAudio() {
-  [
-    "audioApplause",
+function stopAllAudio(includeApplause = true) {
+  const ids = [
     "audioBingo",
     "audioVictory",
     "audioChicken",
     "audioTryAgain",
     "audioTimeOver",
     "audioFinal"
-  ].forEach(id => {
+  ];
+  if (includeApplause) ids.push("audioApplause");
+  ids.forEach(id => {
     const a = document.getElementById(id);
+    if (!a) return;
     a.pause();
     a.currentTime = 0;
   });
 }
 
 function playSound(type) {
-  stopAllAudio();
+  if (type === "applause") {
+    const applause = document.getElementById("audioApplause");
+    if (!applause) return;
+    applause.pause();
+    applause.currentTime = 0;
+    const p = applause.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+    return;
+  }
+
+  stopAllAudio(false);
+
   let id = "audioVictory";
-  if (type === "applause") id = "audioApplause";
-  else if (type === "win-fast") id = "audioBingo";
+  if (type === "win-fast") id = "audioBingo";
   else if (type === "chicken") id = "audioChicken";
   else if (type === "lose") id = "audioTryAgain";
   else if (type === "time-over") id = "audioTimeOver";
   else if (type === "final") id = "audioFinal";
+
   const a = document.getElementById(id);
+  if (!a) return;
+  a.currentTime = 0;
   const p = a.play();
   if (p && typeof p.catch === "function") p.catch(() => {});
 }
 
 function updateRoundTimer() {
-  document.getElementById("roundTimer").textContent = String(state.roundTime).padStart(2,"0");
+  document.getElementById("roundTimer").textContent = String(state.roundTime).padStart(2, "0");
 }
 
 function updateRoomLabel() {
@@ -889,18 +824,38 @@ function updateRoomLabel() {
 
 function showRoomTransition(title, sub, nextAction) {
   const overlay = document.getElementById("roomOverlay");
-  document.getElementById("roomOverlayTitle").textContent = title;
-  document.getElementById("roomOverlaySub").textContent = sub;
+  const titleEl = document.getElementById("roomOverlayTitle");
+  const subEl = document.getElementById("roomOverlaySub");
+
+  titleEl.textContent = title;
+  subEl.textContent = `👏 ${sub} 👏`;
+
   overlay.classList.add("show");
   playSound("applause");
+
   setTimeout(() => {
     overlay.classList.remove("show");
+    stopAllAudio(true);
     if (nextAction) nextAction();
-  }, 3000);
+  }, 4800);
 }
 
 function showFinalTransition() {
-  showRoomTransition("3-xona tugadi", "Parvon jangi yakunlandi", finishGame);
+  const overlay = document.getElementById("roomOverlay");
+  const titleEl = document.getElementById("roomOverlayTitle");
+  const subEl = document.getElementById("roomOverlaySub");
+
+  titleEl.textContent = "3-XONA TUGADI";
+  subEl.textContent = "👏 PARVON JANGI YAKUNLANDI 👏";
+
+  overlay.classList.add("show");
+  playSound("applause");
+
+  setTimeout(() => {
+    overlay.classList.remove("show");
+    stopAllAudio(true);
+    finishGame();
+  }, 5200);
 }
 
 function guardedRestart() {
@@ -943,22 +898,26 @@ document.getElementById("pwdInput").addEventListener("keydown", e => {
 });
 
 function restartGame() {
-  stopAllAudio();
+  stopAllAudio(true);
   clearInterval(state.timer);
+
   state.roomIndex = 0;
   state.questionIndexInRoom = 0;
   state.roundTime = 30;
   state.revealPending = false;
   state.running = true;
+
   board1.score = 0;
   board2.score = 0;
   board1.updateScore();
   board2.updateScore();
+
   document.getElementById("finalScreen").classList.remove("show");
   document.getElementById("roundOverlay").classList.remove("show");
   document.getElementById("roomOverlay").classList.remove("show");
+
   updateRoomLabel();
-  showRoomTransition("1-xona", currentRoom().intro, startRound);
+  showRoomTransition("1-XONA", "NISO BOSQICHI BOSHLANMOQDA", startRound);
 }
 
 function answerForBoard(board, idx) {
@@ -985,12 +944,12 @@ function startRound() {
   if (!state.running) return;
   const room = currentRoom();
   const q = currentQuestion();
+
   state.revealPending = false;
   state.roundTime = 30;
   updateRoundTimer();
   updateRoomLabel();
 
-  // savol raqamlarini global qilib ko‘rsatish
   const qText = q.q.replace(/^Savol\s+\d+\.\s*/i, `Savol ${totalQuestionNumber()}. `);
 
   board1.renderQuestion({ ...q, q: qText }, room.key);
@@ -1089,14 +1048,17 @@ function moveNext() {
     return;
   }
 
-  // xona tugadi
   if (state.roomIndex < ROOMS.length - 1) {
+    const finishedRoomTitle = currentRoom().title.toUpperCase();
     state.roomIndex++;
     state.questionIndexInRoom = 0;
     updateRoomLabel();
+
+    const nextRoom = currentRoom();
+
     showRoomTransition(
-      `${state.roomIndex + 1}-xona`,
-      currentRoom().intro,
+      `${finishedRoomTitle} TUGADI`,
+      `${nextRoom.title.toUpperCase()} BOSHLANMOQDA`,
       startRound
     );
     return;
