@@ -569,6 +569,8 @@
 <audio id="audioYouWin" preload="auto" src="audio/you-win.mp3"></audio>
 <audio id="audioYouLost" preload="auto" src="audio/you-lost-male.mp3"></audio>
 <audio id="audioNegative" preload="auto" src="audio/negative-beeps.mp3"></audio>
+<audio id="audioPainful" preload="auto" src="audio/painful-ooh.mp3"></audio>
+<audio id="audioGuitarLoop" preload="auto" src="audio/guitar-loop.mp3" loop></audio>
 <audio id="audioTimeOver" preload="auto" src="audio/time-over.mp3"></audio>
 <audio id="audioFinal" preload="auto" src="audio/failure.mp3"></audio>
 
@@ -758,6 +760,8 @@ const state = {
   revealPending: false,
   running: true
 };
+let winSoundIndex = 0;
+let loseSoundIndex = 0;
 
 function currentRoom() {
   return ROOMS[state.roomIndex];
@@ -773,12 +777,26 @@ function totalQuestionNumber() {
   return total + state.questionIndexInRoom + 1;
 }
 
+function startBackgroundLoop() {
+  const bg = document.getElementById("audioGuitarLoop");
+  if (!bg) return;
+
+  bg.volume = 0.18;
+  bg.loop = true;
+
+  if (!bg.paused) return;
+
+  const p = bg.play();
+  if (p && typeof p.catch === "function") p.catch(() => {});
+}
+
 function stopAllAudio(includeApplause = true) {
   const ids = [
     "audioVictory",
     "audioYouWin",
     "audioYouLost",
     "audioNegative",
+    "audioPainful",
     "audioTimeOver",
     "audioFinal"
   ];
@@ -807,7 +825,11 @@ function playSound(type) {
   stopAllAudio(false);
 
   if (type === "win") {
-    const a = document.getElementById("audioVictory"); // xohlasangiz audioYouWin ga almashtiring
+    const winIds = ["audioVictory", "audioYouWin"];
+    const currentId = winIds[winSoundIndex % winIds.length];
+    winSoundIndex++;
+
+    const a = document.getElementById(currentId);
     if (!a) return;
     a.currentTime = 0;
     const p = a.play();
@@ -816,7 +838,11 @@ function playSound(type) {
   }
 
   if (type === "lose") {
-    const a = document.getElementById("audioYouLost"); // xohlasangiz audioNegative ga almashtiring
+    const loseIds = ["audioNegative", "audioYouLost", "audioPainful"];
+    const currentId = loseIds[loseSoundIndex % loseIds.length];
+    loseSoundIndex++;
+
+    const a = document.getElementById(currentId);
     if (!a) return;
     a.currentTime = 0;
     const p = a.play();
@@ -834,6 +860,7 @@ function playSound(type) {
   const p = a.play();
   if (p && typeof p.catch === "function") p.catch(() => {});
 }
+
 function updateRoundTimer() {
   document.getElementById("roundTimer").textContent = String(state.roundTime).padStart(2, "0");
 }
@@ -944,6 +971,7 @@ function restartGame() {
   document.getElementById("roomOverlay").classList.remove("show");
 
   updateRoomLabel();
+  startBackgroundLoop();
   showRoomTransition("1-XONA", "NISO BOSQICHI BOSHLANMOQDA", startRound);
 }
 
@@ -1050,11 +1078,9 @@ function revealRound() {
   const chosenSound =
   (board1.selectedIndex === null && board2.selectedIndex === null)
     ? "time-over"
-    : (board1.selectedCorrect && board2.selectedCorrect)
-      ? "win-double"
-      : (board1.selectedCorrect || board2.selectedCorrect)
-        ? "win"
-        : "lose";
+    : (board1.selectedCorrect || board2.selectedCorrect)
+      ? "win"
+      : "lose";
 
   playSound(chosenSound);
 
