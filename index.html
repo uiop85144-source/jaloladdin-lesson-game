@@ -762,6 +762,10 @@ const state = {
 };
 let winSoundIndex = 0;
 let loseSoundIndex = 0;
+let team1WinSoundIndex = 0;
+let team2WinSoundIndex = 0;
+let team1LoseSoundIndex = 0;
+let team2LoseSoundIndex = 0;
 
 function currentRoom() {
   return ROOMS[state.roomIndex];
@@ -859,6 +863,62 @@ function playSound(type) {
   a.currentTime = 0;
   const p = a.play();
   if (p && typeof p.catch === "function") p.catch(() => {});
+}
+
+function playSingleAudio(audioId) {
+  const a = document.getElementById(audioId);
+  if (!a) return;
+
+  a.pause();
+  a.currentTime = 0;
+  const p = a.play();
+  if (p && typeof p.catch === "function") p.catch(() => {});
+}
+
+function getTeamWinAudio(teamNumber) {
+  if (teamNumber === 1) {
+    const ids = ["audioVictory", "audioYouWin"];
+    const id = ids[team1WinSoundIndex % ids.length];
+    team1WinSoundIndex++;
+    return id;
+  } else {
+    const ids = ["audioYouWin", "audioVictory"];
+    const id = ids[team2WinSoundIndex % ids.length];
+    team2WinSoundIndex++;
+    return id;
+  }
+}
+
+function getTeamLoseAudio(teamNumber) {
+  if (teamNumber === 1) {
+    const ids = ["audioNegative", "audioYouLost", "audioPainful"];
+    const id = ids[team1LoseSoundIndex % ids.length];
+    team1LoseSoundIndex++;
+    return id;
+  } else {
+    const ids = ["audioYouLost", "audioPainful", "audioNegative"];
+    const id = ids[team2LoseSoundIndex % ids.length];
+    team2LoseSoundIndex++;
+    return id;
+  }
+}
+
+function playTeamResultSounds() {
+  stopAllAudio(false);
+
+  if (board1.selectedIndex === null && board2.selectedIndex === null) {
+    playSound("time-over");
+    return;
+  }
+
+  const team1Audio = board1.selectedCorrect ? getTeamWinAudio(1) : getTeamLoseAudio(1);
+  const team2Audio = board2.selectedCorrect ? getTeamWinAudio(2) : getTeamLoseAudio(2);
+
+  playSingleAudio(team1Audio);
+
+  setTimeout(() => {
+    playSingleAudio(team2Audio);
+  }, 850);
 }
 
 function updateRoundTimer() {
@@ -1075,14 +1135,7 @@ function revealRound() {
   board1.reveal(correctText, r1);
   board2.reveal(correctText, r2);
 
-  const chosenSound =
-  (board1.selectedIndex === null && board2.selectedIndex === null)
-    ? "time-over"
-    : (board1.selectedCorrect || board2.selectedCorrect)
-      ? "win"
-      : "lose";
-
-  playSound(chosenSound);
+  playTeamResultSounds();
 
   document.getElementById("roundCorrect").textContent = `To‘g‘ri javob: ${correctText}`;
   document.getElementById("roundTeam1Main").textContent = r1.en;
