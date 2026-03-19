@@ -488,9 +488,9 @@
 <body>
 <div class="app">
   <div class="control-row">
-    <div class="top-team-label">1-jamoa</div>
+    <div class="top-team-label" id="topTeamLeft">1-jamoa</div>
     <button class="restart-btn" onclick="guardedRestart()">Qayta boshlash</button>
-    <div class="top-team-label">2-jamoa</div>
+    <div class="top-team-label" id="topTeamRight">2-jamoa</div>
   </div>
 
   <div class="header">
@@ -513,12 +513,12 @@
     <div class="round-correct" id="roundCorrect"></div>
     <div class="round-teams">
       <div class="round-team">
-        <div class="round-team-name">1-jamoa</div>
+        <div class="round-team-name" id="roundTeam1Name">1-jamoa</div>
         <div class="round-team-main" id="roundTeam1Main"></div>
         <div class="round-team-sub" id="roundTeam1Sub"></div>
       </div>
       <div class="round-team">
-        <div class="round-team-name">2-jamoa</div>
+        <div class="round-team-name" id="roundTeam2Name">2-jamoa</div>
         <div class="round-team-main" id="roundTeam2Main"></div>
         <div class="round-team-sub" id="roundTeam2Sub"></div>
       </div>
@@ -539,12 +539,22 @@
     <div class="final-grid">
       <div class="final-card">
         <h2>1-jamoa</h2>
-        <div class="final-score" id="final1">0.0</div>
+        <div class="final-score" id="final1">0</div>
         <div class="final-sub">10 balldan</div>
       </div>
       <div class="final-card">
         <h2>2-jamoa</h2>
-        <div class="final-score" id="final2">0.0</div>
+        <div class="final-score" id="final2">0</div>
+        <div class="final-sub">10 balldan</div>
+      </div>
+      <div class="final-card">
+        <h2>3-jamoa</h2>
+        <div class="final-score" id="final3">0</div>
+        <div class="final-sub">10 balldan</div>
+      </div>
+      <div class="final-card">
+        <h2>4-jamoa</h2>
+        <div class="final-score" id="final4">0</div>
         <div class="final-sub">10 balldan</div>
       </div>
     </div>
@@ -625,6 +635,8 @@ const MAPS = {
   parvon: "images/parvon.png"
 };
 
+const teamScores = [0, 0, 0, 0];
+
 function shuffleArray(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -661,8 +673,8 @@ function createBoard(rootId, teamName) {
       <div class="scene-icon icon-c" id="${rootId}_c">⚔</div>
       <div class="scene-icon icon-m" id="${rootId}_m">🏇</div>
       <div class="map-badges">
-        <div class="badge">${teamName}</div>
-        <div class="badge" id="${rootId}_score">0.0 / 10</div>
+        <div class="badge" id="${rootId}_team">${teamName}</div>
+        <div class="badge" id="${rootId}_score">0 / 10</div>
       </div>
       <div class="team-overlay" id="${rootId}_overlay">
         <div class="team-overlay-text">
@@ -674,14 +686,18 @@ function createBoard(rootId, teamName) {
     <div class="options" id="${rootId}_options"></div>
     <div class="bottom" id="${rootId}_bottom">Javobni tanlang</div>
   `;
+
   return {
     rootId,
     teamName,
-    score: 0,
     selectedIndex: null,
     selectedCorrect: false,
     selectedAt: null,
     options: [],
+    setTeamName(name) {
+      this.teamName = name;
+      document.getElementById(`${rootId}_team`).textContent = name;
+    },
     renderQuestion(q, battleKey) {
       this.selectedIndex = null;
       this.selectedCorrect = false;
@@ -725,8 +741,9 @@ function createBoard(rootId, teamName) {
       });
     },
     waitMessage(waiting) {
-      document.getElementById(`${rootId}_bottom`).textContent =
-        waiting ? `${this === board1 ? "2" : "1"}-jamoani kuting` : "Javobni tanlang";
+      const [leftTeam, rightTeam] = getActiveTeamNumbers();
+      const otherTeam = this === board1 ? rightTeam : leftTeam;
+      document.getElementById(`${rootId}_bottom`).textContent = waiting ? `${otherTeam}-jamoani kuting` : "Javobni tanlang";
     },
     reveal(correctText, result) {
       const btns = [...document.querySelectorAll(`#${rootId}_options .opt`)];
@@ -743,8 +760,8 @@ function createBoard(rootId, teamName) {
       document.getElementById(`${rootId}_overlayUz`).textContent = result.uz;
       document.getElementById(`${rootId}_overlay`).classList.add("show");
     },
-    updateScore() {
-      document.getElementById(`${rootId}_score`).textContent = `${this.score.toFixed(1)} / 10`;
+    updateScore(scoreValue) {
+      document.getElementById(`${rootId}_score`).textContent = `${scoreValue} / 10`;
     }
   };
 }
@@ -760,6 +777,7 @@ const state = {
   revealPending: false,
   running: true
 };
+
 let winSoundIndex = 0;
 let loseSoundIndex = 0;
 let team1WinSoundIndex = 0;
@@ -779,6 +797,31 @@ function totalQuestionNumber() {
   let total = 0;
   for (let i = 0; i < state.roomIndex; i++) total += ROOMS[i].questions.length;
   return total + state.questionIndexInRoom + 1;
+}
+
+function getActiveTeamNumbers() {
+  return totalQuestionNumber() <= 10 ? [1, 2] : [3, 4];
+}
+
+function getActiveTeamIndexes() {
+  const [leftTeam, rightTeam] = getActiveTeamNumbers();
+  return [leftTeam - 1, rightTeam - 1];
+}
+
+function syncActiveTeamsUI() {
+  const [leftTeam, rightTeam] = getActiveTeamNumbers();
+
+  document.getElementById("topTeamLeft").textContent = `${leftTeam}-jamoa`;
+  document.getElementById("topTeamRight").textContent = `${rightTeam}-jamoa`;
+
+  document.getElementById("roundTeam1Name").textContent = `${leftTeam}-jamoa`;
+  document.getElementById("roundTeam2Name").textContent = `${rightTeam}-jamoa`;
+
+  board1.setTeamName(`${leftTeam}-jamoa`);
+  board2.setTeamName(`${rightTeam}-jamoa`);
+
+  board1.updateScore(teamScores[leftTeam - 1]);
+  board2.updateScore(teamScores[rightTeam - 1]);
 }
 
 function startBackgroundLoop() {
@@ -1021,10 +1064,8 @@ function restartGame() {
   state.revealPending = false;
   state.running = true;
 
-  board1.score = 0;
-  board2.score = 0;
-  board1.updateScore();
-  board2.updateScore();
+  teamScores.fill(0);
+  syncActiveTeamsUI();
 
   document.getElementById("finalScreen").classList.remove("show");
   document.getElementById("roundOverlay").classList.remove("show");
@@ -1068,6 +1109,7 @@ function startRound() {
 
   const qText = q.q.replace(/^Savol\s+\d+\.\s*/i, `Savol ${totalQuestionNumber()}. `);
   updateHeaderQuestions(qText);
+  syncActiveTeamsUI();
 
   board1.renderQuestion({ ...q, q: qText }, room.key);
   board2.renderQuestion({ ...q, q: qText }, room.key);
@@ -1109,11 +1151,13 @@ function revealRound() {
   state.revealPending = false;
   const q = currentQuestion();
   const correctText = q.correct;
+  const [leftIndex, rightIndex] = getActiveTeamIndexes();
 
-  if (board1.selectedCorrect) board1.score += 0.5;
-  if (board2.selectedCorrect) board2.score += 0.5;
-  board1.updateScore();
-  board2.updateScore();
+  if (board1.selectedCorrect) teamScores[leftIndex] += 1;
+  if (board2.selectedCorrect) teamScores[rightIndex] += 1;
+
+  board1.updateScore(teamScores[leftIndex]);
+  board2.updateScore(teamScores[rightIndex]);
 
   let r1 = resultForBoard(board1, board2);
   let r2 = resultForBoard(board2, board1);
@@ -1154,6 +1198,15 @@ function moveNext() {
   const room = currentRoom();
   state.questionIndexInRoom++;
 
+  if (totalQuestionNumber() === 11) {
+    showRoomTransition(
+      "1–2-JAMOA BOSQICHI TUGADI",
+      "3–4-JAMOA BOSQICHI BOSHLANMOQDA",
+      startRound
+    );
+    return;
+  }
+
   if (state.questionIndexInRoom < room.questions.length) {
     startRound();
     return;
@@ -1181,8 +1234,10 @@ function moveNext() {
 function finishGame() {
   clearInterval(state.timer);
   state.running = false;
-  document.getElementById("final1").textContent = board1.score.toFixed(1);
-  document.getElementById("final2").textContent = board2.score.toFixed(1);
+  document.getElementById("final1").textContent = teamScores[0];
+  document.getElementById("final2").textContent = teamScores[1];
+  document.getElementById("final3").textContent = teamScores[2];
+  document.getElementById("final4").textContent = teamScores[3];
   document.getElementById("finalScreen").classList.add("show");
   playSound("final");
 }
